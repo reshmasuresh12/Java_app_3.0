@@ -73,6 +73,25 @@ pipeline{
                }
             }
         }
+        stage('Jfrog Docker Start'){
+         when { expression {  params.action == 'create' } }
+            steps{
+               script{
+                   
+                   jfBuild()
+               }
+            }
+        }
+        stage('Jfrog push jar to repo'){
+         when { expression {  params.action == 'create' } }
+            steps{
+               script{
+                   
+                   jfPush()
+               }
+            }
+        }
+
         stage('Docker Image Build'){
          when { expression {  params.action == 'create' } }
             steps{
